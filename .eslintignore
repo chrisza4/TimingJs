@@ -1,0 +1,4 @@
+node_modules/*
+bower_components/*
+build/*
+plugins/api/email-templates/templates.js
