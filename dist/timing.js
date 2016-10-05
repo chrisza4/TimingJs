@@ -19,19 +19,29 @@ function timing(modules) {
       (function () {
         var funcToWrapped = val;
         newModules[key] = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-          var _args = arguments;
+          var _arguments = arguments;
+          var argsArray,
+              result,
+              _args = arguments;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  time(key + ' use');
-                  _context.next = 3;
-                  return funcToWrapped.apply(funcToWrapped, _args);
+                  argsArray = Object.keys(_args).map(function (key) {
+                    return _arguments[key];
+                  });
 
-                case 3:
-                  timeEnd(key + ' use');
+                  time(key + ' use');
+                  _context.next = 4;
+                  return funcToWrapped.apply(null, argsArray);
 
                 case 4:
+                  result = _context.sent;
+
+                  timeEnd(key + ' use');
+                  return _context.abrupt('return', result);
+
+                case 7:
                 case 'end':
                   return _context.stop();
               }
