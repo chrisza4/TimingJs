@@ -1,11 +1,12 @@
 {
   "name": "timing-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Mesaure performance in each Node.js modules",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill $(find ./src/ -name '*.spec.js')",
-    "build": "NODE_ENV=production babel src -d dist"
+    "build": "NODE_ENV=production babel src -d dist",
+    "publish-repo": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
