@@ -4,12 +4,20 @@ export function timing (modules, time = console.time, timeEnd = console.timeEnd)
     const val = modules[key]
     if (typeof val === 'function') {
       const funcToWrapped = val
-      newModules[key] = async function () {
-        const argsArray = Object.keys(arguments).map(key => arguments[key])        
+      newModules[key] = function () {
+        const argsArray = Object.keys(arguments).map(key => arguments[key])
         time(`${key} use`)
-        const result = await funcToWrapped.apply(null, argsArray)
-        timeEnd(`${key} use`)
-        return result
+        const funcResult = funcToWrapped.apply(null, argsArray)
+        if (!funcResult.then) {
+          timeEnd(`${key} use`)
+          return funcResult
+        }
+        else {
+          return funcResult.then(result => {
+            timeEnd(`${key} use`)
+            return result
+          })
+        }
       }
     }
     else {

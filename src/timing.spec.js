@@ -29,4 +29,17 @@ describe('Timing js', () => {
     const result = await moduleWithTiming.func1('a', 'b')
     expect(result).to.deep.equal([ 'a' , 'b' ])
   })
+
+  it('should be able to log non-promise function', () => {
+    const mockModules = {
+      plus: (a, b) => a + b
+    }
+    const time = Sinon.stub()
+    const timeEnd = Sinon.stub()
+    const timingModule = timing(mockModules, time, timeEnd)
+    const result = timingModule.plus(4, 5)
+    expect(result).to.equal(9)
+    expect(time.calledWith('plus use')).to.be.true
+    expect(timeEnd.calledWith('plus use')).to.be.true
+  })
 })
